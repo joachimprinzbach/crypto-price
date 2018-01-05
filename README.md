@@ -11,6 +11,15 @@ You only need to have node.js (>= 8.4.0) installed.
 Copy the "sample.api.config.json" as "api.config.json". 
 Insert your binance API key and API secret.
 
+```json
+{
+  "binance": {
+    "apiKey": "your_api_key",
+    "apiSecret": "your_api_secret"
+  }
+}
+```
+
 ### Installing dependencies
 ```sh
 $ npm install
