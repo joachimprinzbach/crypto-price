@@ -34,6 +34,7 @@ binance.balance((cryptoBalances) => {
                 }
                 crypto.credit = Math.round(crypto.price * crypto.amount * 100) / 100;
             });
+            wallet.sort((crypto1, crypto2) => crypto2.credit - crypto1.credit);
             wallet.forEach(crypto => {
                 console.log(`${crypto.sign}: amount: ${crypto.amount}, price: ${crypto.price} € -> total: ${crypto.credit} €`);
             });
