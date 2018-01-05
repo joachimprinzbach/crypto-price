@@ -1,0 +1,6 @@
+{
+  "binance": {
+    "apiKey": "your_api_key",
+    "apiSecret": "your_api_secret"
+  }
+}
