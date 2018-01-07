@@ -1,7 +1,7 @@
-const orderApi = require('./binance-assets.api');
+const assetApi = require('./binance-assets.api');
 
 module.exports = {
     registerEndpoints(app) {
-        orderApi.registerEndpoints(app);
+        assetApi.registerEndpoints(app);
     }
 };

@@ -1,13 +1,23 @@
 <template>
     <div>
         <h1>Your Binance Assets</h1>
-        <ul>
-            <li v-for="asset in assets">
-                {{ asset.sign }}: {{ asset.amount}}, {{asset.price}} -> total: {{asset.credit}} €
-            </li>
-            <li>Total: {{assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)}} €</li>
-        </ul>
-        <v-btn color="primary">Dont click me!</v-btn>
+        <v-data-table
+                v-bind:headers="headers"
+                :items="assets"
+                hide-actions
+        >
+            <template slot="items" slot-scope="props">
+                <td>{{ props.item.sign }}</td>
+                <td class="text-xs-right">{{ props.item.amount }}</td>
+                <td class="text-xs-right">{{ props.item.price }} €</td>
+                <td class="text-xs-right">{{ props.item.credit }} €</td>
+            </template>
+            <template slot="footer">
+                <td colspan="100%">
+                    <strong>Total amount: {{assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)}} €</strong>
+                </td>
+            </template>
+        </v-data-table>
     </div>
 </template>
 
@@ -21,6 +31,16 @@
         }),
         created() {
             this.$store.dispatch('getAllAssets')
+        },
+        data() {
+            return {
+                headers: [
+                    {text: 'Sign', value: 'sign'},
+                    {text: 'Amount of Coins', value: 'amount'},
+                    {text: 'Current Price', value: 'single'},
+                    {text: 'Total price', value: 'total'}
+                ]
+            }
         }
     };
 </script>
