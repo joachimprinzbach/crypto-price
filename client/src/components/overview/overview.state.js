@@ -9,15 +9,15 @@ const getters = {
 };
 
 const actions = {
-    getAllAssets ({ commit }) {
+    getAllAssets({commit}) {
         return assetApi.fetchAssets().then(assets => {
-            commit('RECEIVE_ASSETS', { assets })
+            commit('RECEIVE_ASSETS', {assets})
         })
     }
 };
 
 const mutations = {
-    ['RECEIVE_ASSETS'] (state, { assets }) {
+    ['RECEIVE_ASSETS'](state, {assets}) {
         state.assets = assets
     }
 };
