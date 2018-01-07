@@ -1,12 +1,12 @@
 <template>
-  <div class="hello">
-    <h1>BLAAAA</h1>
+  <div>
+    <h1>Your Binance Assets</h1>
   <ul>
     <li v-for="asset in assets">
-      {{ asset.sign }} - {{ asset.amount}}
+      {{ asset.sign }}: {{ asset.amount}}, {{asset.price}} -> total: {{asset.credit}} €
     </li>
   </ul>
-    <v-btn color="primary">Primary</v-btn>
+    <v-btn color="primary">Dont click me!</v-btn>
   </div>
 </template>
 

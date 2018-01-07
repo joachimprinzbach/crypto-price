@@ -1,4 +1,4 @@
-import overviewApi from './overview.api';
+import assetApi from './assets.api';
 
 const state = {
     assets: []
@@ -10,7 +10,7 @@ const getters = {
 
 const actions = {
     getAllAssets ({ commit }) {
-        overviewApi.fetchOverview(assets => {
+        return assetApi.fetchAssets().then(assets => {
             commit('RECEIVE_ASSETS', { assets })
         })
     }

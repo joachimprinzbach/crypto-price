@@ -4,8 +4,11 @@ const config = require('./api.config.json');
 
 binance.options({
     'APIKEY': config.binance.apiKey,
-    'APISECRET': config.binance.apiSecret
+    'APISECRET': config.binance.apiSecret,
+    'recvWindow': 60000
 });
+
+const base = 'https://api.binance.com/api/';
 
 const currency = 'EUR';
 
