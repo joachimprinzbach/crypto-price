@@ -11,6 +11,7 @@
                 <td class="text-xs-right">{{ props.item.amount }}</td>
                 <td class="text-xs-right">{{ props.item.price }} €</td>
                 <td class="text-xs-right">{{ props.item.credit }} €</td>
+                <td class="text-xs-right"  v-bind:class="[props.item.change24 > 0 ? 'green' : 'red']">{{ props.item.change24 }} %</td>
             </template>
             <template slot="footer">
                 <td colspan="100%">
@@ -38,7 +39,8 @@
                     {text: 'Sign', value: 'sign'},
                     {text: 'Amount of Coins', value: 'amount'},
                     {text: 'Current Price', value: 'single'},
-                    {text: 'Total price', value: 'total'}
+                    {text: 'Total price', value: 'total'},
+                    {text: '24 Hour Change', value: 'percent'}
                 ]
             }
         }

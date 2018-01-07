@@ -23,6 +23,10 @@ const getAccount = () => {
     return signedQuery('v3/account');
 };
 
+const getTrades = (symbol) => {
+    return signedQuery('v3/myTrades', {symbol: symbol});
+};
+
 const getAssets = () => {
     return getAccount().then(account => {
         const wallet = account.balances
@@ -34,13 +38,14 @@ const getAssets = () => {
                 }
             });
         const commaSeparatedSigns = wallet.map(crypto => crypto.sign).join(',');
-        return fetch(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=${commaSeparatedSigns}&tsyms=${currency}`)
+        return fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${commaSeparatedSigns}&tsyms=${currency}`)
             .then(res => res.json())
             .then(json => {
                 wallet.map(crypto => {
-                    const priceInfo = json[crypto.sign];
+                    const priceInfo = json.RAW[crypto.sign];
                     if (priceInfo) {
-                        crypto.price = priceInfo[currency];
+                        crypto.price = priceInfo[currency].PRICE;
+                        crypto.change24 = Math.round(priceInfo[currency].CHANGEPCT24HOUR * 100) / 100;
                     } else {
                         console.error(`No price found for ${crypto.sign}`);
                         crypto.price = 0;
@@ -78,4 +83,31 @@ const signedQuery = (url, data = {}, method = 'GET') => {
 };
 
 
+/*const debouncedLogHistoricalPrices = (cryptoSign, buySign, credit) => {
+    return limiter.removeTokens(1, (err, remRequests) => {
+        return logHistoricalPrices(cryptoSign, buySign, credit);
+    });
+};
+
+const logHistoricalPrices = (cryptoSign, buySign, credit) => {
+    return binance.trades(`${cryptoSign}${buySign}`, (trades, symbol) => {
+        if (trades.forEach)
+            trades.forEach(trade => {
+                const price = trade.qty * trade.price;
+                const tradeTimeInSeconds = Math.round(trade.time / 1000);
+                return fetch(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=${buySign}&tsyms=${currency}&ts=${tradeTimeInSeconds}`)
+                    .then(res => res.json())
+                    .then(json => {
+                        const priceInfo = json[buySign];
+                        if (priceInfo) {
+                            const historicalPrice = priceInfo[currency];
+                            //console.log(price * historicalPrice);
+                            console.log(buySign + "@"+ historicalPrice);
+                        } else {
+                            console.error(`No historical price found for ${symbol} at ${tradeTimeInSeconds}`);
+                        }
+                    });
+            });
+    });
+};*/
 
