@@ -5,6 +5,7 @@
     <li v-for="asset in assets">
       {{ asset.sign }}: {{ asset.amount}}, {{asset.price}} -> total: {{asset.credit}} €
     </li>
+    <li>Total: {{assets.map(a => a.credit).reduce((a1, a2) => a1 + a2)}} €</li>
   </ul>
     <v-btn color="primary">Dont click me!</v-btn>
   </div>
