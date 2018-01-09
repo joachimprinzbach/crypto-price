@@ -3,11 +3,13 @@
   "env": {
     "API_KEY": {
       "description": "Your binance api key",
-      "generator": "secret"
+      "required": true,
+      "value": "insert your api key here"
     },
     "API_SECRET": {
       "description": "Your binance api secret",
-      "value": "secret"
+      "required": true,
+      "value": "insert your secret here"
     }
   }
 }
