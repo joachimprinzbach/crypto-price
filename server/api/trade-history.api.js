@@ -36,7 +36,10 @@ const getTrades = (sign) => {
                         }
                     });*/
             });
-        return trades.filter(trade => trade.id);
+        return trades.filter(trade => trade.id).map(trade => {
+            trade.time = Math.round(trade.time / 1000);
+            return trade;
+        });
     });
 };
 
