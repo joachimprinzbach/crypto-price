@@ -25,7 +25,14 @@ Insert your binance API key and API secret.
 $ npm install
 ```
 
-### Run the application locally
+### Run the server locally
 ```sh
-$ node index
+$ npm run api
 ```
+
+### Run the application locally (run in another console instance than server api)
+```sh
+$ npm start
+```
+
+Open Browser at [http://localhost:8080](http://localhost:8080) to see the app in action.

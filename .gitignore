@@ -60,3 +60,4 @@ typings/
 *.iml
 .idea
 api.config.json
+dist
