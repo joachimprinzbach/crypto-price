@@ -16,19 +16,35 @@ module.exports = {
 };
 
 const getTrades = (sign) => {
-    return Promise.all([binance.getTrades(`${sign}ETH`), binance.getTrades(`${sign}BTC`), binance.getTrades(`${sign}BTC`)])
+    return Promise.all([binance.getTrades(`${sign}ETH`), binance.getTrades(`${sign}BTC`), binance.getTrades(`${sign}BNB`)])
         .then(resultArr => {
+            resultArr = resultArr.map(arr => {
+                if(Array.isArray(arr)) {
+                    return arr;
+                } else {
+                    return [];
+                }
+            });
             const trades = []
                 .concat(resultArr[0].map(trade => {
-                    trade.pair = `${sign}/ETH`;
+                    trade.pair = {
+                        from: sign,
+                        to: 'ETH'
+                    };
                     return trade;
                 }))
                 .concat(resultArr[1].map(trade => {
-                    trade.pair = `${sign}/BTC`;
+                    trade.pair = {
+                        from: sign,
+                        to: 'BTC'
+                    };
                     return trade;
                 }))
                 .concat(resultArr[2].map(trade => {
-                    trade.pair = `${sign}/BTC`;
+                    trade.pair = {
+                        from: sign,
+                        to: 'BNB'
+                    };
                     return trade;
                 }));
             if (trades.forEach)

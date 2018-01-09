@@ -8,11 +8,12 @@
         >
             <template slot="items" slot-scope="props">
                 <td class="text-xs-right">{{ props.item.time | moment("DD.MM.YYYY - HH:mm:ss") }}</td>
-                <td class="text-xs-right">{{ props.item.pair }}</td>
-                <td v-if="props.item.isBuyer" class="text-xs-right"><v-icon color="green">playlist_add</v-icon></td>
-                <td v-if="!props.item.isBuyer" class="text-xs-right"><v-icon color="red">remove_circle</v-icon></td>
-                <td>{{ props.item.price}}</td>
-                <td>{{ Math.round(props.item.qty * 10 / 10) }}</td>
+                <td class="text-xs-right">{{ props.item.pair.from }}/{{props.item.pair.to}}</td>
+                <td v-if="props.item.isBuyer" class="text-xs-right"><v-icon color="green">playlist_add</v-icon> - Buy</td>
+                <td v-if="!props.item.isBuyer" class="text-xs-right"><v-icon color="red">remove_circle</v-icon> - Sell</td>
+                <td class="text-xs-right">{{ props.item.price}} {{props.item.pair.to}}</td>
+                <td class="text-xs-right">{{ Math.round(props.item.qty * 10 / 10) }}</td>
+                <td class="text-xs-right">{{ Math.round(props.item.qty * 10 / 10) *  props.item.price}} {{props.item.pair.to}}</td>
             </template>
         </v-data-table>
     </div>
@@ -38,7 +39,8 @@
                     {text: 'Pair', value: 'pair'},
                     {text: 'Order', value: 'order'},
                     {text: 'Price', value: 'price'},
-                    {text: 'Amount', value: 'amount'}
+                    {text: 'Amount', value: 'amount'},
+                    {text: 'Total', value: 'total'}
                 ]
             }
         }
