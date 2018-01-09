@@ -16,11 +16,15 @@ module.exports = {
 };
 
 const getTrades = (sign) => {
-    return Promise.all([binance.getTrades(`${sign}ETH`), binance.getTrades(`${sign}BTC`), binance.getTrades(`${sign}BNB`)])
+    return Promise.all([binance.getTrades(`${sign}ETH`), binance.getTrades(`${sign}BTC`), binance.getTrades(`${sign}BNB`), binance.getDeposits(sign), binance.getWithdrawals(sign)])
         .then(resultArr => {
             resultArr = resultArr.map(arr => {
-                if(Array.isArray(arr)) {
+                if (Array.isArray(arr)) {
                     return arr;
+                } else if (Array.isArray(arr.withdrawList)) {
+                    return arr.withdrawList;
+                } else if (Array.isArray(arr.depositList)) {
+                    return arr.depositList;
                 } else {
                     return [];
                 }
@@ -47,7 +51,8 @@ const getTrades = (sign) => {
                     };
                     return trade;
                 }));
-            if (trades.forEach)
+            const deposits = resultArr[3];
+            const withdrawals = resultArr[4];
             trades.forEach(trade => {
                 const price = trade.qty * trade.price;
                 const tradeTimeInSeconds = Math.round(trade.time / 1000);
@@ -64,13 +69,25 @@ const getTrades = (sign) => {
                         }
                     });*/
             });
-        return trades.filter(trade => trade.id).map(trade => {
-            trade.time = Math.round(trade.time / 1000);
-            return trade;
+            return {
+                trades: trades
+                    .filter(trade => trade.id)
+                    .map(trade => {
+                        trade.time = Math.round(trade.time / 1000);
+                        return trade;
+                    }),
+                withdrawals: withdrawals.map(withdrawal => {
+                    withdrawal.successTime = Math.round(withdrawal.successTime / 1000);
+                    withdrawal.applyTime = Math.round(withdrawal.applyTime / 1000);
+                    return withdrawal;
+                }),
+                deposits: deposits.map(deposit => {
+                    deposit.insertTime = Math.round(deposit.insertTime / 1000);
+                    return deposit;
+                }),
+            }
         });
-    });
 };
-
 
 /*const debouncedLogHistoricalPrices = (cryptoSign, buySign, credit) => {
     return limiter.removeTokens(1, (err, remRequests) => {

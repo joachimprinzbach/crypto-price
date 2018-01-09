@@ -1,6 +1,6 @@
 <template>
     <v-toolbar color="indigo" dark fixed app>
-        <v-toolbar-title>Coins</v-toolbar-title>
+        <v-toolbar-title><router-link to="/">Coins</router-link></v-toolbar-title>
     </v-toolbar>
 </template>
 <script>

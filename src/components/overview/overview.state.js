@@ -2,12 +2,16 @@ import assetApi from './assets.api';
 
 const state = {
     assets: [],
-    trades: []
+    trades: [],
+    withdrawals: [],
+    deposits: []
 };
 
 const getters = {
     allAssets: state => state.assets,
-    allTrades: state => state.trades
+    allTrades: state => state.trades,
+    allWithdrawals: state => state.withdrawals,
+    allDeposits: state => state.deposits
 };
 
 const actions = {
@@ -28,7 +32,9 @@ const mutations = {
         state.assets = assets
     },
     ['RECEIVE_TRADES'](state, {trades}) {
-        state.trades = trades
+        state.trades = trades.trades,
+        state.withdrawals = trades.withdrawals,
+        state.deposits = trades.deposits
     }
 };
 
