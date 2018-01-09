@@ -2,6 +2,13 @@
 
 You only need to have node.js (>= 8.4.0) installed.
 
+### Deploy to heroku
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+There are two env variables expected on your heroku instance:
+- "API_KEY" - for your binance api key
+- "API_SECRET" - for your binance api secret
+
 ### Installing node.js:
 
 - [Node.js](http://nodejs.org) >= 8.4.0
