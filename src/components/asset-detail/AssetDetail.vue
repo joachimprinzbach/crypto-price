@@ -7,8 +7,8 @@
                 hide-actions
         >
             <template slot="items" slot-scope="props">
-                <td>{{ props.item.qty }}</td>
-                <td>{{ props.item.price }}</td>
+                <td>{{ Math.round(props.item.qty * 10 / 10) }}</td>
+                <td>{{ props.item.price}}</td>
                 <td v-if="props.item.isBuyer" class="text-xs-right"><v-icon color="green">playlist_add</v-icon></td>
                 <td v-if="!props.item.isBuyer" class="text-xs-right"><v-icon color="red">remove_circle</v-icon></td>
                 <td class="text-xs-right">{{ props.item.time | moment("DD.MM.YYYY - HH:mm:ss") }}</td>
