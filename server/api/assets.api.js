@@ -47,33 +47,3 @@ const getAssets = () => {
             });
     });
 };
-
-
-/*const debouncedLogHistoricalPrices = (cryptoSign, buySign, credit) => {
-    return limiter.removeTokens(1, (err, remRequests) => {
-        return logHistoricalPrices(cryptoSign, buySign, credit);
-    });
-};
-
-const logHistoricalPrices = (cryptoSign, buySign, credit) => {
-    return binance.trades(`${cryptoSign}${buySign}`, (trades, symbol) => {
-        if (trades.forEach)
-            trades.forEach(trade => {
-                const price = trade.qty * trade.price;
-                const tradeTimeInSeconds = Math.round(trade.time / 1000);
-                return fetch(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=${buySign}&tsyms=${currency}&ts=${tradeTimeInSeconds}`)
-                    .then(res => res.json())
-                    .then(json => {
-                        const priceInfo = json[buySign];
-                        if (priceInfo) {
-                            const historicalPrice = priceInfo[currency];
-                            //console.log(price * historicalPrice);
-                            console.log(buySign + "@"+ historicalPrice);
-                        } else {
-                            console.error(`No historical price found for ${symbol} at ${tradeTimeInSeconds}`);
-                        }
-                    });
-            });
-    });
-};*/
-

@@ -1,6 +1,4 @@
-const fetch = require('node-fetch');
 const Logger = require('../logger');
-const currency = 'EUR';
 const binance = require('./binance.api');
 
 module.exports = {
@@ -38,7 +36,7 @@ const getTrades = (sign) => {
                         }
                     });*/
             });
-        return trades;
+        return trades.filter(trade => trade.id);
     });
 };
 
