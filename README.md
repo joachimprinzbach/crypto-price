@@ -27,12 +27,12 @@ $ npm install
 
 ### Run the server locally
 ```sh
-$ npm run api
+$ npm start
 ```
 
 ### Run the application locally (run in another console instance than server api)
 ```sh
-$ npm start
+$ npm run client
 ```
 
 Open Browser at [http://localhost:8080](http://localhost:8080) to see the app in action.

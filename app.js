@@ -1,6 +1,7 @@
 const express = require('express');
-const Logger = require('./logger');
-const api = require('./api');
+const serveStatic = require('serve-static');
+const Logger = require('./server/logger');
+const api = require('./server/api');
 
 const app = express();
 app.use('*', (req, res, next) => {
@@ -9,6 +10,7 @@ app.use('*', (req, res, next) => {
     next();
 });
 
+app.use(serveStatic(__dirname + "/dist"));
 api.registerEndpoints(app);
 
 const server = app.listen(process.env.PORT || 3000, () => {
