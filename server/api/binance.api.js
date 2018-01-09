@@ -1,5 +1,7 @@
 const crypto = require('crypto');
 const config = require('../../api.config.json');
+const apiKey = process.env.API_KEY || config.binance.apiKey;
+const secret = process.env.API_SECRET || config.binance.apiSecret;
 const baseBinanceApiUrl = 'https://api.binance.com/';
 const fetch = require('node-fetch');
 
@@ -12,7 +14,7 @@ const signedQuery = (url, data = {}, method = 'GET') => {
             return a;
         }, [])
         .join('&');
-    const signature = crypto.createHmac("sha256", config.binance.apiSecret)
+    const signature = crypto.createHmac("sha256", secret)
         .update(query)
         .digest("hex");
 
@@ -22,7 +24,7 @@ const signedQuery = (url, data = {}, method = 'GET') => {
         headers: {
             'User-Agent': 'Mozilla/4.0 (compatible; Node Binance API)',
             'Content-type': 'application/x-www-form-urlencoded',
-            'X-MBX-APIKEY': config.binance.apiKey
+            'X-MBX-APIKEY': apiKey
         }
     }).then(res => res.json())
 };
