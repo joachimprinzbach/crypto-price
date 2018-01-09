@@ -11,7 +11,7 @@
                 <td class="text-xs-right">{{ Math.round(props.item.amount * 10 / 10) }}</td>
                 <td class="text-xs-right">{{ props.item.price }} €</td>
                 <td class="text-xs-right">{{ props.item.credit }} €</td>
-                <td class="text-xs-right"  v-bind:class="[props.item.change24 > 0 ? 'green' : 'red']">{{ props.item.change24 }} %</td>
+                <td class="text-xs-right"><span v-bind:class="[props.item.change24 > 0 ? 'green--text' : 'red--text']">{{ props.item.change24 }} %</span></td>
                 <td class="text-xs-right"> <v-btn color="primary" v-bind:to="'/detail/'+props.item.sign">Show details for {{props.item.sign}}</v-btn></td>
             </template>
             <template slot="footer">
