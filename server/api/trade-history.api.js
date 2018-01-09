@@ -97,9 +97,6 @@ const getTrades = (sign) => {
                     return deposit;
                 }),
             }
-        })
-        .catch(err => {
-            Logger.error(err);
         });
 };
 
