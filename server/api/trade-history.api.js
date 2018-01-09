@@ -15,8 +15,19 @@ module.exports = {
     }
 };
 
+const adjustTimestamp = (timestamp) => {
+    return Math.round(timestamp / 1000);
+};
 const getTrades = (sign) => {
-    return Promise.all([binance.getTrades(`${sign}ETH`), binance.getTrades(`${sign}BTC`), binance.getTrades(`${sign}BNB`), binance.getDeposits(sign), binance.getWithdrawals(sign)])
+    return Promise.all(
+        [
+            binance.getTrades(`${sign}ETH`),
+            binance.getTrades(`${sign}BTC`),
+            binance.getTrades(`${sign}BNB`),
+            binance.getDeposits(sign),
+            binance.getWithdrawals(sign)
+        ]
+    )
         .then(resultArr => {
             resultArr = resultArr.map(arr => {
                 if (Array.isArray(arr)) {
@@ -73,19 +84,22 @@ const getTrades = (sign) => {
                 trades: trades
                     .filter(trade => trade.id)
                     .map(trade => {
-                        trade.time = Math.round(trade.time / 1000);
+                        trade.time = adjustTimestamp(trade.time);
                         return trade;
                     }),
                 withdrawals: withdrawals.map(withdrawal => {
-                    withdrawal.successTime = Math.round(withdrawal.successTime / 1000);
-                    withdrawal.applyTime = Math.round(withdrawal.applyTime / 1000);
+                    withdrawal.successTime = adjustTimestamp(withdrawal.successTime);
+                    withdrawal.applyTime = adjustTimestamp(withdrawal.applyTime);
                     return withdrawal;
                 }),
                 deposits: deposits.map(deposit => {
-                    deposit.insertTime = Math.round(deposit.insertTime / 1000);
+                    deposit.insertTime = adjustTimestamp(deposit.insertTime);
                     return deposit;
                 }),
             }
+        })
+        .catch(err => {
+            Logger.error(err);
         });
 };
 
