@@ -8,7 +8,7 @@
         >
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.sign }}</td>
-                <td class="text-xs-right">{{ Math.round(props.item.amount * 10 / 10) }}</td>
+                <td class="text-xs-right">{{props.item.amount}}</td>
                 <td class="text-xs-right">{{ props.item.price }} €</td>
                 <td class="text-xs-right">{{ props.item.credit }} €</td>
                 <td class="text-xs-right"><span v-bind:class="[props.item.change24 > 0 ? 'green--text' : 'red--text']">{{ props.item.change24 }} %</span></td>
