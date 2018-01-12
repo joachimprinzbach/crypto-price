@@ -15,6 +15,7 @@
                 <td class="text-xs-right">{{ props.item.price}} {{props.item.pair.to}}</td>
                 <td class="text-xs-right">{{ Math.round(props.item.qty * 10 / 10) }} {{props.item.pair.from}}</td>
                 <td class="text-xs-right">{{ Math.round(props.item.qty * 10 / 10) *  props.item.price}} {{props.item.pair.to}}</td>
+                <td class="text-xs-right">{{  Math.round((props.item.currentValue - props.item.transactionValue) * 100 / 100)}} €</td>
             </template>
         </v-data-table>
         <h2>Deposits</h2>
@@ -70,7 +71,8 @@
                     {text: 'Order', value: 'order'},
                     {text: 'Price', value: 'price'},
                     {text: 'Amount', value: 'amount'},
-                    {text: 'Total', value: 'total'}
+                    {text: 'Total', value: 'total'},
+                    {text: 'Gain / Loss', value: 'gain'}
                 ],
                 withdrawalHeaders: [
                     {text: 'Apply Time', value: 'apply'},

@@ -1,7 +1,8 @@
-const fetch = require('node-fetch');
 const Logger = require('../logger');
-const currency = 'EUR';
 const binance = require('./binance.api');
+const pricing = require('./pricing.api');
+
+const currency = 'EUR';
 
 module.exports = {
     registerEndpoints(app) {
@@ -28,8 +29,7 @@ const getAssets = () => {
                 }
             });
         const commaSeparatedSigns = wallet.map(crypto => crypto.sign).join(',');
-        return fetch(`https://min-api.cryptocompare.com/data/pricemultifull?fsyms=${commaSeparatedSigns}&tsyms=${currency}`)
-            .then(res => res.json())
+        return pricing.getMultipialPrices(commaSeparatedSigns, currency)
             .then(json => {
                 wallet.map(crypto => {
                     const priceInfo = json.RAW[crypto.sign];
