@@ -4,14 +4,18 @@ const state = {
     assets: [],
     trades: [],
     withdrawals: [],
-    deposits: []
+    deposits: [],
+    depositSum: 0,
+    withdrawalSum: 0
 };
 
 const getters = {
     allAssets: state => state.assets,
     allTrades: state => state.trades,
     allWithdrawals: state => state.withdrawals,
-    allDeposits: state => state.deposits
+    allDeposits: state => state.deposits,
+    depositSum: state => state.depositSum,
+    withdrawalSum: state => state.withdrawalSum
 };
 
 const actions = {
@@ -24,6 +28,16 @@ const actions = {
         return assetApi.fetchTrades(symbol.sign).then(trades => {
             commit('RECEIVE_TRADES', {trades})
         })
+    },
+    getDepositSum({commit}) {
+        return assetApi.fetchDeposits().then(depositSum => {
+            commit('RECEIVE_DEPOSITSUM', {depositSum})
+        })
+    },
+    getWithdrawalSum({commit}) {
+        return assetApi.fetchWithdrawals().then(withdrawalSum => {
+            commit('RECEIVE_WITHDRAWALSUM', {withdrawalSum})
+        })
     }
 };
 
@@ -35,6 +49,12 @@ const mutations = {
         state.trades = trades.trades,
         state.withdrawals = trades.withdrawals,
         state.deposits = trades.deposits
+    },
+    ['RECEIVE_DEPOSITSUM'](state, {depositSum}) {
+        state.depositSum = depositSum
+    },
+    ['RECEIVE_WITHDRAWALSUM'](state, {withdrawalSum}) {
+        state.withdrawalSum = withdrawalSum
     }
 };
 

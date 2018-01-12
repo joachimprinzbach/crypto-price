@@ -1,4 +1,6 @@
 const fetch = require('node-fetch');
+const RateLimiter = require('limiter').RateLimiter;
+const limiter = new RateLimiter(15, 'second');
 const baseApi = 'https://min-api.cryptocompare.com/data/';
 
 const getMultipialPrices = (commaSeparatedSigns, currency) => {
@@ -6,7 +8,9 @@ const getMultipialPrices = (commaSeparatedSigns, currency) => {
 };
 
 const getSinglePrice = (sign, currency) => {
-    return fetch(`${baseApi}price?fsym=${sign}&tsyms=${currency}`).then(res => res.json());
+        return limiter.removeTokens(1, (err, remRequests) => {
+            return fetch(`${baseApi}price?fsym=${sign}&tsyms=${currency}`).then(res => res.json());
+        });
 };
 
 const getHistoricalPrice = (sign, currency, tradeTimeInSeconds) => {
