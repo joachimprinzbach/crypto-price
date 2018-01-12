@@ -9,10 +9,10 @@ module.exports = {
         app.get('/api/assets',
             (req, res) =>
                 getAssets()
-                    .then(assets => res.send(assets))
+                    .then(assets => res.json(assets))
                     .catch((err) => {
                         Logger.error(err);
-                        res.status(500).send('Fetching assets failed!');
+                        res.sendStatus(500).send('Fetching assets failed!');
                     })
         );
     }
@@ -41,8 +41,7 @@ const getAssets = () => {
                         crypto.price = 0;
                     }
                     crypto.credit = Math.round(crypto.price * crypto.amount * 100) / 100;
-                });
-                wallet.sort((crypto1, crypto2) => crypto2.credit - crypto1.credit);
+                }).sort((crypto1, crypto2) => crypto2.credit - crypto1.credit);
                 return Promise.resolve(wallet);
             });
     });

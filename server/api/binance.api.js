@@ -32,6 +32,8 @@ module.exports = {
     getAccount: () => signedQuery('api/v3/account'),
     getTrades: (symbol) => signedQuery('api/v3/myTrades', {symbol: symbol}),
     getWithdrawals: (asset) => signedQuery('wapi/v3/withdrawHistory.html', {asset: asset}),
-    getDeposits: (asset) => signedQuery('wapi/v3/depositHistory.html', {asset: asset})
+    getAllWithdrawals: () => signedQuery('wapi/v3/withdrawHistory.html'),
+    getDeposits: (asset) => signedQuery('wapi/v3/depositHistory.html', {asset: asset}),
+    getAllDeposits: () => signedQuery('wapi/v3/depositHistory.html')
 
 };

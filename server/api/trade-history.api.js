@@ -9,10 +9,10 @@ module.exports = {
         app.get('/api/trades/:sign',
             (req, res) =>
                 getTrades(req.params.sign)
-                    .then(trades => res.send(trades))
+                    .then(trades => res.json(trades))
                     .catch((err) => {
                         Logger.error(err);
-                        res.status(500).send('Fetching trades failed!');
+                        res.sendStatus(500).send('Fetching trades failed!');
                     })
         );
     }
