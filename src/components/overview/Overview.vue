@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Your Binance Assets</h1>
+        <h1>Your Binance Assets (Refresh if total calculation does not work on first try)</h1>
         <v-data-table
                 v-bind:headers="headers"
                 :items="assets"
