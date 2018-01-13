@@ -1,11 +1,9 @@
 language: node_js
 node_js:
   - "8"
-
 env:
-    - API_KEY=someKey
-    - API_SECRET=someSecret
-
+- API_KEY=someKey
+- API_SECRET=someSecret
 cache:
   directories:
     - "node_modules"
