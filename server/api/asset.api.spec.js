@@ -1,8 +1,8 @@
 const nock = require('nock');
 const expect = require('chai').expect;
 const api = require('./asset.api');
-const accountMock = require('./account.mock');
-const priceMock = require('./multi-price.mock');
+const accountMock = require('./external/binance/account.mock');
+const priceMock = require('./external/cryptocompare/multi-price.mock');
 
 describe('getAssets', () => {
    it('should output correct price', (done) => {

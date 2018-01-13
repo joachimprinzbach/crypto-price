@@ -1,8 +1,8 @@
 const nock = require('nock');
 const expect = require('chai').expect;
 const api = require('./withdrawal.api');
-const withdrawMock = require('./withdrawHistory.mock');
-const priceMock = require('./historical-price.mock');
+const withdrawMock = require('./external/binance/withdrawHistory.mock');
+const priceMock = require('./external/cryptocompare/historical-price.mock');
 
 describe('getWithdrawals', () => {
    it('should output correct price', (done) => {

@@ -1,6 +1,6 @@
 const Logger = require('../logger');
-const binance = require('./external/binance.api');
-const pricing = require('./external/pricing.api');
+const binance = require('./external/binance/binance.api');
+const pricing = require('./external/cryptocompare/pricing.api');
 
 const currency = 'EUR';
 

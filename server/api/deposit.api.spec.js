@@ -1,8 +1,8 @@
 const nock = require('nock');
 const expect = require('chai').expect;
 const api = require('./deposit.api');
-const depositMock = require('./deposit.mock');
-const priceMock = require('./historical-price.mock');
+const depositMock = require('./external/binance/deposit.mock');
+const priceMock = require('./external/cryptocompare/historical-price.mock');
 
 describe('getDeposit', () => {
    it('should output correct price', (done) => {
