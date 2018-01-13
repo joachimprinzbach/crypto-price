@@ -14,6 +14,19 @@ Vue.use(VueResource);
 Vue.use(Vuetify);
 Vue.use(VueMoment);
 
+Vue.filter('round', function(value, decimals) {
+    if(!value) {
+        value = 0;
+    }
+
+    if(!decimals) {
+        decimals = 0;
+    }
+
+    value = Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals);
+    return value;
+});
+
 /* eslint-disable no-new */
 new Vue({
     el: '#app',

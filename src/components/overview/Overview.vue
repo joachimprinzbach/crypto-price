@@ -8,27 +8,27 @@
         >
             <template slot="items" slot-scope="props">
                 <td>{{ props.item.sign }}</td>
-                <td class="text-xs-right">{{props.item.amount}}</td>
-                <td class="text-xs-right">{{ props.item.price }} €</td>
-                <td class="text-xs-right">{{ props.item.credit }} €</td>
+                <td class="text-xs-right">{{props.item.amount | round(4)}}</td>
+                <td class="text-xs-right">{{ props.item.price | round(2) }} €</td>
+                <td class="text-xs-right">{{ props.item.credit | round(2) }} €</td>
                 <td class="text-xs-right"><span v-bind:class="[props.item.change24 > 0 ? 'green--text' : 'red--text']">{{ props.item.change24 }} %</span></td>
                 <td class="text-xs-right"> <v-btn color="primary" v-bind:to="'/detail/'+props.item.sign">Show details for {{props.item.sign}}</v-btn></td>
             </template>
             <template slot="footer">
                 <td>
-                    <strong>Total amount: {{assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)}} €</strong>
+                    <strong>Total amount: {{assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0) | round(2)}} €</strong>
                 </td>
                 <td>
-                    <strong>Deposits: {{depositSum.deposits}} €</strong>
+                    <strong>Deposits: {{depositSum.deposits | round(2)}} €</strong>
                 </td>
                 <td>
-                    <strong>Withdrawals: {{withdrawalSum.withdrawals}} €</strong>
+                    <strong>Withdrawals: {{withdrawalSum.withdrawals | round(2)}} €</strong>
                 </td>
                 <td>
-                    <strong>Saldo: {{assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0) - depositSum.deposits + withdrawalSum.withdrawals}} €</strong>
+                    <strong>Saldo: {{(assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0) - depositSum.deposits + withdrawalSum.withdrawals) | round(2)}} €</strong>
                 </td>
                 <td>
-                    <strong>Gain / Loss: {{((assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)) - (depositSum.deposits + withdrawalSum.withdrawals)) / (assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)) * 100}} %</strong>
+                    <strong>Gain / Loss: {{(((assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)) - (depositSum.deposits + withdrawalSum.withdrawals)) / (assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)) * 100) | round(2)}} %</strong>
                 </td>
             </template>
         </v-data-table>
