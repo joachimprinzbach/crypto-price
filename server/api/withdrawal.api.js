@@ -45,7 +45,7 @@ module.exports = {
                     .then(withdrawals => res.json(withdrawals))
                     .catch((err) => {
                         Logger.error(err);
-                        res.send(500).send('Fetching withdrawals failed!');
+                        res.sendStatus(500).send('Fetching withdrawals failed!');
                     })
         );
     },
