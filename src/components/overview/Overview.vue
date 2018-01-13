@@ -28,7 +28,7 @@
                     <strong>Saldo: {{assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0) - depositSum.deposits + withdrawalSum.withdrawals}} €</strong>
                 </td>
                 <td>
-                    <strong>Gain / Loss: {{assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0) - depositSum.deposits + withdrawalSum.withdrawals}} €</strong>
+                    <strong>Gain / Loss: {{((assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)) - (depositSum.deposits + withdrawalSum.withdrawals)) / (assets.map(a => a.credit).reduce((a1, a2) => a1 + a2, 0)) * 100}} %</strong>
                 </td>
             </template>
         </v-data-table>
