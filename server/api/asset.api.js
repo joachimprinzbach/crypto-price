@@ -1,22 +1,8 @@
 const Logger = require('../logger');
-const binance = require('./binance.api');
-const pricing = require('./pricing.api');
+const binance = require('./external/binance.api');
+const pricing = require('./external/pricing.api');
 
 const currency = 'EUR';
-
-module.exports = {
-    registerEndpoints(app) {
-        app.get('/api/assets',
-            (req, res) =>
-                getAssets()
-                    .then(assets => res.json(assets))
-                    .catch((err) => {
-                        Logger.error(err);
-                        res.sendStatus(500).send('Fetching assets failed!');
-                    })
-        );
-    }
-};
 
 const getAssets = () => {
     return binance.getAccount().then(account => {
@@ -46,3 +32,19 @@ const getAssets = () => {
             });
     });
 };
+
+module.exports = {
+    registerEndpoints(app) {
+        app.get('/api/assets',
+            (req, res) =>
+                getAssets()
+                    .then(assets => res.json(assets))
+                    .catch((err) => {
+                        Logger.error(err);
+                        res.sendStatus(500).send('Fetching assets failed!');
+                    })
+        );
+    },
+    getAssets
+};
+

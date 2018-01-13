@@ -1,6 +1,6 @@
 const crypto = require('crypto');
-const apiKey = process.env.API_KEY || require('../../api.config.json').binance.apiKey;
-const secret = process.env.API_SECRET || require('../../api.config.json').binance.apiSecret;
+const apiKey = process.env.API_KEY || require('../../../api.config.json').binance.apiKey;
+const secret = process.env.API_SECRET || require('../../../api.config.json').binance.apiSecret;
 const baseBinanceApiUrl = 'https://api.binance.com/';
 const fetch = require('node-fetch');
 

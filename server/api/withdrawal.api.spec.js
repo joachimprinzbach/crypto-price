@@ -1,5 +1,5 @@
 const nock = require('nock');
-const assert = require('assert');
+const expect = require('chai').expect;
 const api = require('./withdrawal.api');
 const withdrawMock = require('./withdrawHistory.mock');
 const priceMock = require('./historical-price.mock');
@@ -18,7 +18,7 @@ describe('getWithdrawals', () => {
 
         api.getWithdrawals().then(withdrawals => {
             let expectedWithdrawal = {withdrawals: 56.40258 };
-            assert.deepEqual(expectedWithdrawal, withdrawals);
+            expect(withdrawals).to.deep.equal(expectedWithdrawal);
             done();
         });
    })

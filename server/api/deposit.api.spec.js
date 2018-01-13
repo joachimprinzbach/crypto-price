@@ -1,5 +1,5 @@
 const nock = require('nock');
-const assert = require('assert');
+const expect = require('chai').expect;
 const api = require('./deposit.api');
 const depositMock = require('./deposit.mock');
 const priceMock = require('./historical-price.mock');
@@ -18,7 +18,7 @@ describe('getDeposit', () => {
 
         api.getDeposits().then(deposits => {
             let expectedDeposit = { deposits: 91062.1795005 };
-            assert.deepEqual(expectedDeposit, deposits);
+            expect(deposits).to.deep.equal(expectedDeposit);
             done();
         });
    })
