@@ -65,7 +65,12 @@ const getTrades = (sign) => {
 
             const pricePromises = trades.map(trade => {
                 const tradeTimeInSeconds = Math.round(trade.time / 1000);
-                return pricing.getHistoricalPrice(sign, currency, tradeTimeInSeconds);
+                const cachedPrice = pricing.getCachedPrice(sign, currency, tradeTimeInSeconds);
+                if(cachedPrice) {
+                    return Promise.resolve(cachedPrice);
+                } else {
+                    return pricing.getHistoricalPrice(sign, currency, tradeTimeInSeconds);
+                }
             });
 
             return Promise.all(pricePromises)
@@ -73,8 +78,13 @@ const getTrades = (sign) => {
                     const items = pricePromises.length;
                     for (let i = 0; i < items; i++) {
                         const priceInfo = res[i][trades[i].pair.from];
+                        const tradeTimeInSeconds = Math.round(trades[i].time / 1000);
                         if (priceInfo) {
                             const historicalPrice = priceInfo[currency];
+                            const cachedPrice = pricing.getCachedPrice(sign, currency, tradeTimeInSeconds);
+                            if(!cachedPrice) {
+                                pricing.cachePrice(sign, currency, tradeTimeInSeconds, res[i]);
+                            }
                             trades[i].transactionValue = historicalPrice * trades[i].qty;
                             trades[i].currentValue = currentMarketPrice * trades[i].qty;
                         } else {
