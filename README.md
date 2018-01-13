@@ -1,5 +1,7 @@
 # crypto-price
 
+[![Build Status](https://travis-ci.org/basler-crypto/crypto-price.svg?branch=master)](https://travis-ci.org/basler-crypto/crypto-price)
+
 You only need to have node.js (>= 8.4.0) installed.
 
 ### Deploy to heroku
