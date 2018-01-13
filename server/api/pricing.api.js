@@ -1,21 +1,14 @@
 const fetch = require('node-fetch');
-const RateLimiter = require('limiter').RateLimiter;
-const limiter = new RateLimiter(15, 'second');
 const baseApi = 'https://min-api.cryptocompare.com/data/';
 
 const cache = {};
 
 const getCachedPrice = (sign, currency, tradeTimeInSeconds) => {
-    const cachedPrice = cache[sign+currency+tradeTimeInSeconds];
-    if(cachedPrice) {
-        console.log('Reading from cache: '+ sign+currency+tradeTimeInSeconds + ' - ' + cache[sign+currency+tradeTimeInSeconds]);
-    }
-  return cache[sign+currency+tradeTimeInSeconds];
+    return cache[sign + currency + tradeTimeInSeconds];
 };
 
 const cachePrice = (sign, currency, tradeTimeInSeconds, price) => {
-    console.log('Caching price: ' + sign+currency+tradeTimeInSeconds +' - ' + price);
-    cache[sign+currency+tradeTimeInSeconds] = price;
+    cache[sign + currency + tradeTimeInSeconds] = price;
 };
 
 const getMultipialPrices = (commaSeparatedSigns, currency) => {

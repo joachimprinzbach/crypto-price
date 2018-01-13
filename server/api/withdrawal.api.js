@@ -4,20 +4,6 @@ const pricing = require('./pricing.api');
 
 const currency = 'EUR';
 
-module.exports = {
-    registerEndpoints(app) {
-        app.get('/api/withdrawal',
-            (req, res) =>
-                getWithdrawals()
-                    .then(withdrawals => res.json(withdrawals))
-                    .catch((err) => {
-                        Logger.error(err);
-                        res.send(500).send('Fetching withdrawals failed!');
-                    })
-        );
-    }
-};
-
 const getWithdrawals = () => {
     return binance.getAllWithdrawals().then(result => {
         const withdrawals = result.withdrawList;
@@ -50,3 +36,19 @@ const getWithdrawals = () => {
         });
     });
 };
+
+module.exports = {
+    registerEndpoints(app) {
+        app.get('/api/withdrawal',
+            (req, res) =>
+                getWithdrawals()
+                    .then(withdrawals => res.json(withdrawals))
+                    .catch((err) => {
+                        Logger.error(err);
+                        res.send(500).send('Fetching withdrawals failed!');
+                    })
+        );
+    },
+    getWithdrawals
+};
+

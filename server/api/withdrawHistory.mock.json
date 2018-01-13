@@ -1,0 +1,27 @@
+{
+  "withdrawList": [
+    {
+      "amount": 8.25,
+      "address": "hash",
+      "successTime": 1515533605000,
+      "addressTag": "55885588",
+      "txId": "txid",
+      "id": "id",
+      "asset": "XRP",
+      "applyTime": 1515533195000,
+      "status": 6
+    },
+    {
+      "amount": 100.899,
+      "address": "hash",
+      "successTime": 1515533605000,
+      "addressTag": "55885588",
+      "txId": "txid",
+      "id": "id",
+      "asset": "XLM",
+      "applyTime": 1515533195000,
+      "status": 6
+    }
+  ],
+  "success": true
+}

@@ -1,0 +1,32 @@
+{
+  "success": true,
+  "depositList": [
+    {
+      "insertTime": 1515175667000,
+      "amount": 2.99,
+      "address": "address",
+      "addressTag": "",
+      "txId": "txid",
+      "asset": "ETH",
+      "status": 1
+    },
+    {
+      "insertTime": 1514468336000,
+      "amount": 3.0018,
+      "address": "address",
+      "addressTag": "",
+      "txId": "txid2",
+      "asset": "BTC",
+      "status": 1
+    },
+    {
+      "insertTime": 1514312607000,
+      "amount": 44.00009,
+      "address": "address",
+      "addressTag": "",
+      "txId": "txid2",
+      "asset": "ETH",
+      "status": 1
+    }
+  ]
+}
