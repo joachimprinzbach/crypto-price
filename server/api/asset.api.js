@@ -31,12 +31,12 @@ const getAssets = () => {
                     const priceInfo = json.RAW[crypto.asset];
                     if (priceInfo) {
                         crypto.price = priceInfo[currency].PRICE;
-                        crypto.change24 = Math.round(priceInfo[currency].CHANGEPCT24HOUR * 100) / 100;
+                        crypto.change24 = priceInfo[currency].CHANGEPCT24HOUR;
                     } else {
                         console.error(`No price found for ${crypto.asset}`);
                         crypto.price = 0;
                     }
-                    crypto.credit = Math.round(crypto.price * crypto.amount * 100) / 100;
+                    crypto.credit = crypto.price * crypto.amount;
                 }).sort((crypto1, crypto2) => crypto2.credit - crypto1.credit);
                 return wallet;
             });
