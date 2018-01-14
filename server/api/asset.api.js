@@ -38,15 +38,14 @@ const getAssets = () => {
                     }
                     crypto.credit = Math.round(crypto.price * crypto.amount * 100) / 100;
                 }).sort((crypto1, crypto2) => crypto2.credit - crypto1.credit);
-                return Promise.resolve(wallet);
+                return wallet;
             });
     });
 };
 
 module.exports = {
     registerEndpoints(app) {
-        app.get('/api/assets',
-            (req, res) =>
+        app.get('/api/assets', (req, res) =>
                 getAssets()
                     .then(assets => res.json(assets))
                     .catch((err) => {
