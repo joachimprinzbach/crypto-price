@@ -1,20 +1,13 @@
 const nock = require('nock');
 const expect = require('chai').expect;
 const api = require('./asset.api');
-const accountMock = require('./external/binance/account.mock');
-const priceMock = require('./external/cryptocompare/multi-price.mock');
+const binanceMock = require('./external/binance/binance.mock');
+const pricingMock = require('./external/cryptocompare/pricing.mock');
 
 describe('getAssets', () => {
-   it('should output correct price', (done) => {
-       nock('https://api.binance.com')
-           .get('/api/v3/account')
-           .query(true)
-           .reply(200, accountMock);
-       nock('https://min-api.cryptocompare.com/data')
-           .get('/pricemultifull')
-           .query(true)
-           .times(1)
-           .reply(200, priceMock);
+    it('should output correct price', (done) => {
+        pricingMock.mockMultiPrice();
+        binanceMock.mockAccount();
 
         api.getAssets().then(assets => {
             let expectedAssets = [
@@ -64,5 +57,5 @@ describe('getAssets', () => {
             expect(assets).to.deep.equal(expectedAssets);
             done();
         });
-   })
+    })
 });

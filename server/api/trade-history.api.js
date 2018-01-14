@@ -4,20 +4,6 @@ const pricing = require('./external/cryptocompare/pricing.api');
 
 const currency = 'EUR';
 
-module.exports = {
-    registerEndpoints(app) {
-        app.get('/api/trades/:sign',
-            (req, res) =>
-                getTrades(req.params.sign)
-                    .then(trades => res.json(trades))
-                    .catch((err) => {
-                        Logger.error(err);
-                        res.sendStatus(500).send('Fetching trades failed!');
-                    })
-        );
-    }
-};
-
 const adjustTimestamp = (timestamp) => {
     return Math.round(timestamp / 1000);
 };
@@ -113,9 +99,21 @@ const getTrades = (sign) => {
         });
 };
 
-/*const debouncedLogHistoricalPrices = (cryptoSign, buySign, credit) => {
-    return limiter.removeTokens(1, (err, remRequests) => {
-        return logHistoricalPrices(cryptoSign, buySign, credit);
-    });
-};*/
+module.exports = {
+    registerEndpoints(app) {
+        app.get('/api/trades/:sign',
+            (req, res) =>
+                getTrades(req.params.sign)
+                    .then(trades => res.json(trades))
+                    .catch((err) => {
+                        Logger.error(err);
+                        res.sendStatus(500).send('Fetching trades failed!');
+                    })
+        );
+    },
+    getTrades
+};
+
+
+
 

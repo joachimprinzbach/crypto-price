@@ -1,0 +1,50 @@
+[
+  {
+    "id": 448187,
+    "orderId": 1392620,
+    "price": "0.00021552",
+    "qty": "12.00000000",
+    "commission": "0.06700000",
+    "commissionAsset": "XLM",
+    "time": 1513930530307,
+    "isBuyer": true,
+    "isMaker": false,
+    "isBestMatch": true
+  },
+  {
+    "id": 448194,
+    "orderId": 1392620,
+    "price": "0.0000552",
+    "qty": "76.00000000",
+    "commission": "1.07000000",
+    "commissionAsset": "XLM",
+    "time": 1513930543587,
+    "isBuyer": true,
+    "isMaker": true,
+    "isBestMatch": true
+  },
+  {
+    "id": 448200,
+    "orderId": 1392620,
+    "price": "0.0000552",
+    "qty": "21.00000000",
+    "commission": "2.24400000",
+    "commissionAsset": "XLM",
+    "time": 1513930557136,
+    "isBuyer": true,
+    "isMaker": true,
+    "isBestMatch": true
+  },
+  {
+    "id": 448205,
+    "orderId": 1392620,
+    "price": "0.0001552",
+    "qty": "1111.00000000",
+    "commission": "1.20500000",
+    "commissionAsset": "XLM",
+    "time": 1513930567730,
+    "isBuyer": true,
+    "isMaker": true,
+    "isBestMatch": true
+  }
+]
