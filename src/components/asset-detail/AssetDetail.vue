@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Asset Details for {{ $route.params.sign }}</h1>
+        <h1>Asset Details for {{ $route.params.asset }}</h1>
         <h2>Transactions</h2>
         <v-data-table
                 v-bind:headers="transactionHeaders"
@@ -60,7 +60,7 @@
         }),
         created() {
             this.$store.dispatch('getAllTrades', {
-                sign: this.$route.params.sign
+                asset: this.$route.params.asset
             })
         },
         data() {

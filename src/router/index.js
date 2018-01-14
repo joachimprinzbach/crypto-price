@@ -13,7 +13,7 @@ export default new Router({
             component: Overview,
         },
         {
-            path: '/detail/:sign',
+            path: '/detail/:asset',
             name: 'AssetDetail',
             component: AssetDetail,
         }

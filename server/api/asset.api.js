@@ -4,26 +4,36 @@ const pricing = require('./external/cryptocompare/pricing.api');
 
 const currency = 'EUR';
 
+const accountHasAssets = (crypto) => crypto.free > 0;
+
+const mapToCrypto = (crypto) => {
+    return {
+        asset: crypto.asset,
+        amount: crypto.free,
+        price: crypto.price,
+        change24: crypto.change24,
+        credit: crypto.credit
+    }
+};
+
 const getAssets = () => {
     return binance.getAccount().then(account => {
+        if(!account.balances) {
+            throw new Error('Fetching balances from account failed!');
+        }
         const wallet = account.balances
-            .filter(crypto => crypto.free > 0)
-            .map(crypto => {
-                return {
-                    sign: crypto.asset,
-                    amount: crypto.free
-                }
-            });
-        const commaSeparatedSigns = wallet.map(crypto => crypto.sign).join(',');
+            .filter(accountHasAssets)
+            .map(mapToCrypto);
+        const commaSeparatedSigns = wallet.map(crypto => crypto.asset).join(',');
         return pricing.getMultipialPrices(commaSeparatedSigns, currency)
             .then(json => {
                 wallet.map(crypto => {
-                    const priceInfo = json.RAW[crypto.sign];
+                    const priceInfo = json.RAW[crypto.asset];
                     if (priceInfo) {
                         crypto.price = priceInfo[currency].PRICE;
                         crypto.change24 = Math.round(priceInfo[currency].CHANGEPCT24HOUR * 100) / 100;
                     } else {
-                        console.error(`No price found for ${crypto.sign}`);
+                        console.error(`No price found for ${crypto.asset}`);
                         crypto.price = 0;
                     }
                     crypto.credit = Math.round(crypto.price * crypto.amount * 100) / 100;

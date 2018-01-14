@@ -25,7 +25,7 @@ const actions = {
         })
     },
     getAllTrades({commit}, symbol) {
-        return assetApi.fetchTrades(symbol.sign).then(trades => {
+        return assetApi.fetchTrades(symbol.asset).then(trades => {
             commit('RECEIVE_TRADES', {trades})
         })
     },

@@ -12,42 +12,42 @@ describe('getAssets', () => {
         api.getAssets().then(assets => {
             let expectedAssets = [
                 {
-                    "sign": "BTC",
+                    "asset": "BTC",
                     "amount": "0.00181758",
                     "price": 1115.09,
                     "change24": 8.74,
                     "credit": 2.03
                 },
                 {
-                    "sign": "LTC",
+                    "asset": "LTC",
                     "amount": "0.02570000",
                     "price": 1115.09,
                     "change24": 8.74,
                     "credit": 28.66
                 },
                 {
-                    "sign": "ETH",
+                    "asset": "ETH",
                     "amount": "0.00019873",
                     "price": 1115.09,
                     "change24": 8.74,
                     "credit": 0.22
                 },
                 {
-                    "sign": "BNB",
+                    "asset": "BNB",
                     "amount": "9.86910724",
                     "price": 1115.09,
                     "change24": 8.74,
                     "credit": 11004.94
                 },
                 {
-                    "sign": "EOS",
+                    "asset": "EOS",
                     "amount": "51.95073400",
                     "price": 1115.09,
                     "change24": 8.74,
                     "credit": 57929.74
                 },
                 {
-                    "sign": "TRX",
+                    "asset": "TRX",
                     "amount": "343.50000000",
                     "price": 1115.09,
                     "change24": 8.74,

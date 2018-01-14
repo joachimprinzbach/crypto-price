@@ -7,12 +7,12 @@
                 hide-actions
         >
             <template slot="items" slot-scope="props">
-                <td>{{ props.item.sign }}</td>
+                <td>{{ props.item.asset }}</td>
                 <td class="text-xs-right">{{props.item.amount | round(4)}}</td>
                 <td class="text-xs-right">{{ props.item.price | round(2) }} €</td>
                 <td class="text-xs-right">{{ props.item.credit | round(2) }} €</td>
                 <td class="text-xs-right"><span v-bind:class="[props.item.change24 > 0 ? 'green--text' : 'red--text']">{{ props.item.change24 }} %</span></td>
-                <td class="text-xs-right"> <v-btn color="primary" v-bind:to="'/detail/'+props.item.sign">Show details for {{props.item.sign}}</v-btn></td>
+                <td class="text-xs-right"> <v-btn color="primary" v-bind:to="'/detail/'+props.item.asset">Show details for {{props.item.asset}}</v-btn></td>
             </template>
             <template slot="footer">
                 <td>
@@ -53,7 +53,7 @@
         data() {
             return {
                 headers: [
-                    {text: 'Sign', value: 'sign'},
+                    {text: 'Asset', value: 'asset'},
                     {text: 'Amount of Coins', value: 'amount'},
                     {text: 'Current Price', value: 'single'},
                     {text: 'Total price', value: 'total'},
