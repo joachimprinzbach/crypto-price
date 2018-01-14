@@ -63,13 +63,14 @@ const getTrades = (sign) => {
                 .then(res => {
                     const items = pricePromises.length;
                     for (let i = 0; i < items; i++) {
-                        const priceInfo = res[i][trades[i].pair.from];
+                        let priceInfo = res[i];
+                        const assetPrice = priceInfo[trades[i].pair.from];
                         const tradeTimeInSeconds = Math.round(trades[i].time / 1000);
-                        if (priceInfo) {
-                            const historicalPrice = priceInfo[currency];
+                        if (assetPrice) {
+                            const historicalPrice = assetPrice[currency];
                             const cachedPrice = pricing.getCachedPrice(sign, currency, tradeTimeInSeconds);
                             if(!cachedPrice) {
-                                pricing.cachePrice(sign, currency, tradeTimeInSeconds, res[i]);
+                                pricing.cachePrice(sign, currency, tradeTimeInSeconds, priceInfo);
                             }
                             trades[i].transactionValue = historicalPrice * trades[i].qty;
                             trades[i].currentValue = currentMarketPrice * trades[i].qty;
@@ -101,8 +102,7 @@ const getTrades = (sign) => {
 
 module.exports = {
     registerEndpoints(app) {
-        app.get('/api/trades/:sign',
-            (req, res) =>
+        app.get('/api/trades/:sign', (req, res) =>
                 getTrades(req.params.sign)
                     .then(trades => res.json(trades))
                     .catch((err) => {

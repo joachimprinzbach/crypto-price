@@ -3,6 +3,7 @@ const binance = require('./external/binance/binance.api');
 const pricing = require('./external/cryptocompare/pricing.api');
 
 const currency = 'EUR';
+const sum = (a, b) => a + b;
 
 const getWithdrawals = () => {
     return binance.getAllWithdrawals().then(result => {
@@ -18,20 +19,20 @@ const getWithdrawals = () => {
         return Promise.all(priceInfoPromises).then(res => {
             const items = priceInfoPromises.length;
             for (let i = 0; i < items; i++) {
-                const priceInfo = res[i][withdrawals[i].asset];
+                const priceInfo = res[i];
+                const assetPrice = priceInfo[withdrawals[i].asset];
                 const withdrawalTimeInSeconds = Math.round(withdrawals[i].applyTime / 1000);
-                if (priceInfo) {
-                    const historicalPrice = priceInfo[currency];
+                if (assetPrice) {
+                    const historicalPrice = assetPrice[currency];
                     const cachedPrice = pricing.getCachedPrice(withdrawals[i].asset, currency, withdrawalTimeInSeconds);
                     if(!cachedPrice) {
-                        pricing.cachePrice(withdrawals[i].asset, currency, withdrawalTimeInSeconds, res[i]);
+                        pricing.cachePrice(withdrawals[i].asset, currency, withdrawalTimeInSeconds, priceInfo);
                     }
                     withdrawals[i].transactionValue = historicalPrice * withdrawals[i].amount;
                 } else {
                     console.error(`No historical price found for ${withdrawals[i].asset} at ${withdrawalTimeInSeconds}`);
                 }
             }
-            const sum = (a, b) => a + b;
             return {withdrawals:withdrawals.map(withdrawal => withdrawal.transactionValue).reduce(sum)};
         });
     });
@@ -39,8 +40,7 @@ const getWithdrawals = () => {
 
 module.exports = {
     registerEndpoints(app) {
-        app.get('/api/withdrawal',
-            (req, res) =>
+        app.get('/api/withdrawal', (req, res) =>
                 getWithdrawals()
                     .then(withdrawals => res.json(withdrawals))
                     .catch((err) => {
